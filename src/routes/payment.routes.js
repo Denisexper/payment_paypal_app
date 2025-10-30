@@ -6,11 +6,11 @@ const router = Router()
 const controller = new paymentController()
 
 
-router.get("/create-pay", controller.create_pay)
+router.get("/create-pay", controller.createOrder)
 
-router.get("/process-pay", (req, res) => res.send("process"))
+router.get("/capture-order", controller.captureOrder)
 
-router.get("/cancel-pay", (req, res) => res.send("canceled"))
+router.get("/cancel-order", controller.cancelPayment)
 
 
 
