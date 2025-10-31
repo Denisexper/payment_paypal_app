@@ -21,7 +21,7 @@ export class paymentController {
 
             application_context: {
                 brand_name: "Mi tienda",
-                landing_page: "NO PREFERENCE",
+                landing_page: "NO_PREFERENCE",
                 user_action: "PAY_NOW",
                 return_url: `http://localhost:3000/api/capture-order`,
                 cancel_url: `http://localhost:3000/api/cancel-order`
@@ -44,13 +44,13 @@ export class paymentController {
 
         const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`, order, {
             headers: {
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${access_token}`
+                
             }
         })
 
-        console.log(response)
-
-        return res.json("capture order")
+        return res.json(response.data)
         
 
 
@@ -58,7 +58,18 @@ export class paymentController {
 
     async captureOrder (req, res) {
 
-        res.send("process pay")
+        const { token } = req.query;
+
+        const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`, {}, {
+                auth: {
+                    username: PAYPAL_API_CLIENT,
+                    password: PAYPAL_API_SECRET
+                }
+            })
+
+        console.log(response.data)
+
+        return res.send('payed')
     }
 
     async cancelPayment (req, res) {
