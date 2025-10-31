@@ -6,7 +6,7 @@ const router = Router()
 const controller = new paymentController()
 
 
-router.get("/create-pay", controller.createOrder)
+router.get("/create-order", controller.createOrder)
 
 router.get("/capture-order", controller.captureOrder)
 
