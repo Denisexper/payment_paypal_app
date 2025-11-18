@@ -1,0 +1,10 @@
+#1 git chekout o git branch (para ver en que rama estamos pocisionados)
+#2 git branch nombreRamaNueva (para crear nueva rama)
+#3 git push -u origin nombreRamaNueva (para empujar la rama nueva al repo)
+
+Hacer merge
+
+#1 git checkout main (para cambiarnos a la rama principal si estamos en una distinta)
+#2 git pull (por si trae cambios recientes)
+#3 git merge NombreRamaNueva (para hacer el merge con la rama nueva desde la rama main)
+#4 git push (para empujar todos los cambios al repo)
