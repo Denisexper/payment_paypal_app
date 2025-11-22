@@ -43,14 +43,14 @@ export class usersController {
                 })
             }
 
-            if (user.password !== password) {
-            return res.status(401).json({
-                msj: "invalid password"
-            });
+            const isMatch = await bcrypt.compare(password, response.password)
+
+            if(!isMatch){
+                return res.status(400).json({ msj: "invalid password"})
             }
 
             const token = jwt.sign(
-                {user: user._id, email: user.email},
+                {id: response._id, email: response.email},
                 process.env.JWT_SECRET,
                 {expiresIn: process.env.JWT_EXPIRES}
             )
@@ -75,13 +75,13 @@ export class usersController {
 
         try {
             
-            const hasPass = bcrypt.hash(password, 10)
+            const hasPass = await bcrypt.hash(password, 10)
 
-            const response = await usersModel.create({name, email, hasPass})
+            const response = await usersModel.create({name, email, password: hasPass})
 
             //crear un token a la hora de hacer register
             const token = jwt.sign(
-                {id: user._id, email: user.email},
+                {id: response._id, email: response.email},
                 process.env.JWT_SECRET,
                 {expiresIn: process.env.JWT_EXPIRES}
             )
