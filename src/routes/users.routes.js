@@ -5,6 +5,7 @@ import { authRequired } from "../auth/authMiddleware.js";
 const router = Router()
 const controller = new usersController()
 
+//test for now
 router.get("/get-users", authRequired, controller.getUsers)
 
 //login and register

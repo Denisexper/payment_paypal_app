@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken"
+import { JWT_SECRET } from "../../config.js";
 
 export const authRequired = (req, res, next) => {
 
@@ -12,7 +13,7 @@ export const authRequired = (req, res, next) => {
 
     try {
         
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, JWT_SECRET);
         req.user = decoded
         next()
     } catch (error) {

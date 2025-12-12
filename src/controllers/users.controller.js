@@ -1,6 +1,7 @@
 import { usersModel } from "../models/users.model.js";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+import { JWT_EXPIRES, JWT_SECRET } from "../../config.js";
 
 export class usersController {
 
@@ -51,8 +52,8 @@ export class usersController {
 
             const token = jwt.sign(
                 {id: response._id, email: response.email},
-                process.env.JWT_SECRET,
-                {expiresIn: process.env.JWT_EXPIRES}
+                JWT_SECRET,
+                {expiresIn: JWT_EXPIRES}
             )
 
             res.status(200).json({
